@@ -6,6 +6,7 @@ import lombok.*;
 import org.example.dronepizza_backend.model.drone.Drone;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,14 +20,14 @@ public class Delivery {
     private int id;
 
     private String address;
-    private Timestamp expectedDeliveryTime;
-    private Timestamp actualDeliveryTime;
+    private LocalDateTime expectedDeliveryTime;
+    private LocalDateTime actualDeliveryTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drone_id")
     private Drone drone;
 
-    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pizza_id")
     private Pizza pizza;
 }

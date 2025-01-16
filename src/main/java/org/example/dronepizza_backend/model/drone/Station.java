@@ -22,7 +22,7 @@ public class Station {
     private double longitude;
 
     @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @JsonBackReference //necessary to avoid creating JSON files that are enormous(lesson learnt)
     private List<Drone> drones;
     //keeps giving a dumb error (which doesnt change anything) about Drone
     //being the wrong 'type'

@@ -1,5 +1,6 @@
 package org.example.dronepizza_backend.model.delivery;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +18,7 @@ public class Pizza {
     private String title;
     private double price;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "delivery_id")
+    @OneToOne(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Delivery delivery;
 }
