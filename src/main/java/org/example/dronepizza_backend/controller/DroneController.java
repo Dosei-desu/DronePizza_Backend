@@ -19,6 +19,8 @@ public class DroneController {
         this.droneService = droneService;
 
         droneService.createStation("alpha",55.41,12.34);
+        droneService.createStation("bravo",55.39,12.32);
+        droneService.createStation("charlie",55.41,12.37);
     }
 
     @GetMapping("/drones")

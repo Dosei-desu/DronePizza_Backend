@@ -7,7 +7,7 @@ import org.example.dronepizza_backend.model.drone.Station;
 import java.util.List;
 
 public interface DroneService {
-    Station createStation(String name, float latitude, float longitude);
+    Station createStation(String name, double latitude, double longitude);
     Drone createDrone();
 
     List<Drone> getDrones();

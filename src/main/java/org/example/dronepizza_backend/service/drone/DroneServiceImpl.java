@@ -18,7 +18,7 @@ public class DroneServiceImpl implements DroneService {
     private final DroneRepository droneRepository;
 
     @Override
-    public Station createStation(String name, float latitude, float longitude) {
+    public Station createStation(String name, double latitude, double longitude) {
         Station station = new Station();
         station.setName(name);
         station.setLatitude(latitude);
@@ -30,6 +30,8 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public Drone createDrone(){
         Drone drone = new Drone();
+
+
 
         return droneRepository.save(drone);
     }
