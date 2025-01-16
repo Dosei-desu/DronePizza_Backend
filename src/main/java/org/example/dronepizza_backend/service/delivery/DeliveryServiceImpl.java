@@ -42,7 +42,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         delivery.setAddress(address);
 
         Pizza pizza = new Pizza();
-        switch(pizzaType){
+        switch (pizzaType) {
             case 1:
                 pizza.setPrice(59.00);
                 pizza.setTitle("Margherita");
@@ -78,23 +78,42 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public Delivery scheduleDelivery(int deliveryId) {
         Delivery delivery = deliveryRepository.findById(deliveryId).orElseThrow();
+
+        //if a delivery is already scheduled, it will throw an error
+        if(delivery.getDrone() != null) {
+            throw new IllegalArgumentException("Delivery has already been scheduled");
+        }
+
+        //utilises helper method to assign available drone
         delivery.setDrone(findAvailableDrone());
+
         return deliveryRepository.save(delivery);
     }
 
+    //helper method to find available drone
     private Drone findAvailableDrone() {
         List<Delivery> allDeliveries = deliveryRepository.findAll();
         List<Drone> allDrones = droneRepository.findAll();
 
-        System.out.println("list before removal pass:" + allDrones.size());
         for (Delivery delivery : allDeliveries) {
             if (delivery.getDrone() != null) {
-                allDrones.removeIf(
-                        drone -> delivery.getDrone().getId() == drone.getId()
-                );
+                if (!allDrones.isEmpty()) {
+                    allDrones.removeIf(
+                            drone -> delivery.getDrone().getId() == drone.getId()
+                    );
+                }
             }
         }
-        System.out.println("list after removal pass:" + allDrones.size());
+
+        //if there are no available drones, a random one will be added back to the list
+        //in essence, this creates a backlog for the drone, but the random assignment is
+        //probably bad from a business perspective
+        if(allDrones.isEmpty()){
+            int numberOfDrones = droneRepository.findAll().size();
+            allDrones.add(droneRepository.findById(
+                    (int) (Math.random() * numberOfDrones)+1
+            ).orElseThrow());
+        }
 
         return allDrones.getFirst();
     }
