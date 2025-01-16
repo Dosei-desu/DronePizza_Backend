@@ -27,7 +27,7 @@ public class Delivery {
     @JoinColumn(name = "drone_id")
     private Drone drone;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "pizza_id")
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Pizza pizza;
 }

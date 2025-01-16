@@ -18,7 +18,7 @@ public class Pizza {
     private String title;
     private double price;
 
-    @OneToOne(mappedBy = "pizza", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonBackReference
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 }

@@ -51,6 +51,7 @@ public class DroneServiceImpl implements DroneService {
             drone.setStation(stations.getFirst());
         }
 
+        //how random id is made right now | TODO make into proper UUID format
         int randomNumberLength = 8;
         StringBuilder randomNumber = new StringBuilder(randomNumberLength);
         for (int i = 0; i < randomNumberLength; i++) {

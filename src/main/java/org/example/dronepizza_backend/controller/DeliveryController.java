@@ -19,10 +19,12 @@ public class DeliveryController {
     public DeliveryController(DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
 
+        /*
         //couldn't get Data.sql inserts to work, so hardcoding it here | TODO fix
         deliveryService.addPizza(59.00,"Margherita");
         deliveryService.addPizza(65.00,"Pepperoni");
         deliveryService.addPizza(68.50,"Pineapple");
+        */
     }
 
     @GetMapping("")
@@ -35,12 +37,23 @@ public class DeliveryController {
     public ResponseEntity<Delivery> addDelivery(@RequestBody AddDeliveryRequest request) {
         Delivery delivery = deliveryService.addDelivery(
                 request.address(),
-                request.pizzaId(),
-                LocalDateTime.now().plusMinutes(
-                        request.minutesUntilExpectedArrival()
-                        //see DTO for explanation ^ | TODO fix
-                )
+                request.pizzaType(),
+                LocalDateTime.now().plusMinutes(30)
+                //adds 30 minute to time of creation
         );
         return ResponseEntity.ok(delivery);
     }
+
+    @GetMapping("/queue")
+    public ResponseEntity<List<Delivery>> getDeliveryQueue() {
+        List<Delivery> deliveryQueue = deliveryService.getDeliveryQueue();
+        return ResponseEntity.ok(deliveryQueue);
+    }
+
+    @GetMapping("/{id}/schedule")
+    public ResponseEntity<Delivery> scheduleDelivery(@PathVariable int id) {
+        Delivery scheduleDelivery = deliveryService.scheduleDelivery(id);
+        return ResponseEntity.ok(scheduleDelivery);
+    }
+
 }
