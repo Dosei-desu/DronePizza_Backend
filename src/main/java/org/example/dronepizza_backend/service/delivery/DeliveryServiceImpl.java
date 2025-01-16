@@ -79,6 +79,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     public Delivery scheduleDelivery(int deliveryId) {
         Delivery delivery = deliveryRepository.findById(deliveryId).orElseThrow();
 
+        //if a delivery has already been finished, it will throw an error
+        if(delivery.getActualDeliveryTime() != null) {
+            throw new IllegalArgumentException("Delivery has already been delivered");
+        }
         //if a delivery is already scheduled, it will throw an error
         if(delivery.getDrone() != null) {
             throw new IllegalArgumentException("Delivery has already been scheduled");
@@ -120,6 +124,17 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery finishDelivery(int deliveryId) {
-        return null;
+        Delivery delivery = deliveryRepository.findById(deliveryId).orElseThrow();
+
+        if(delivery.getDrone() == null) {
+            throw new IllegalArgumentException("Delivery is not assigned a drone");
+        }
+        if (delivery.getActualDeliveryTime() != null) {
+            throw new IllegalArgumentException("Delivery has already been finished");
+        }
+
+        delivery.setActualDeliveryTime(LocalDateTime.now());
+
+        return deliveryRepository.save(delivery);
     }
 }

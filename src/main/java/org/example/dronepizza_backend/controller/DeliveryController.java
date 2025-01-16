@@ -56,4 +56,10 @@ public class DeliveryController {
         return ResponseEntity.ok(scheduleDelivery);
     }
 
+    @GetMapping("/{id}/finish")
+    public ResponseEntity<Delivery> finishDelivery(@PathVariable int id) {
+        Delivery finishedDelivery = deliveryService.finishDelivery(id);
+        return ResponseEntity.ok(finishedDelivery);
+    }
+
 }
