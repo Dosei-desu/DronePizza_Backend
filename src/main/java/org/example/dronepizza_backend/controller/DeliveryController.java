@@ -28,6 +28,7 @@ public class DeliveryController {
     @GetMapping("")
     public ResponseEntity<List<Delivery>> getDeliveries() {
         List<Delivery> deliveries = deliveryService.getDeliveries();
+
         return ResponseEntity.ok(deliveries);
     }
 

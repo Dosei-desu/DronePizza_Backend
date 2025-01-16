@@ -13,13 +13,28 @@
     <h2><i>The future of fast food delivery!</i></h2>
 </header>
 
+<div id="orderPizzaDiv">
+    <h2>Order pizza here:</h2>
+    <h3>Pick one of the following Pizzas</h3>
+    <p>1. Margherita | 2. Pepperoni | 3. Pineapple</p>
+    <form id="orderForm">
+        <input type="text" id="pizzaType" placeholder="Enter pizza number">
+        <input type="text" id="address" placeholder="Enter address">
+        <button type="submit">Order</button>
+    </form>
+</div>
+<br>
+<br>
+<br>
 <div>
-    <table>
+    <table class="center">
         <thead>
         <tr>
             <th>Id</th>
             <th>Address</th>
+            <th>Drone Status</th>
             <th>Expected Delivery Time</th>
+            <th>Time Delivered</th>
             <th>Schedule for Delivery</th>
         </tr>
         </thead>
