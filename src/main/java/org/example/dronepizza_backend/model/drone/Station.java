@@ -17,8 +17,8 @@ public class Station {
     private int id;
 
     private String name;
-    private float latitude;
-    private float longitude;
+    private double latitude;
+    private double longitude;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "station_id")

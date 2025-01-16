@@ -15,9 +15,9 @@ public class Pizza {
     private int id;
 
     private String title;
-    private float price;
+    private double price;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 }

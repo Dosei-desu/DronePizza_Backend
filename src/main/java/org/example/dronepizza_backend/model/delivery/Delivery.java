@@ -21,7 +21,7 @@ public class Delivery {
     private Timestamp expectedDeliveryTime;
     private Timestamp actualDeliveryTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "drone_id")
     private Drone drone;
     //keeps giving a dumb error (which doesnt change anything) about Drone
