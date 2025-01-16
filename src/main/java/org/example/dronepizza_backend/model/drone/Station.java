@@ -1,10 +1,9 @@
-package org.example.dronepizza_backend.drones.model;
+package org.example.dronepizza_backend.model.drone;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -21,6 +20,4 @@ public class Station {
     private String name;
     private float latitude;
     private float longitude;
-
-
 }
