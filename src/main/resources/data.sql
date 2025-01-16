@@ -1,1 +1,1 @@
---INSERT INTO station("alpha",55.41,12.34)
+INSERT INTO station("alpha",55.41,12.34)
