@@ -7,6 +7,7 @@ import org.example.dronepizza_backend.model.drone.Drone;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Getter
@@ -20,8 +21,8 @@ public class Delivery {
     private int id;
 
     private String address;
-    private LocalDateTime expectedDeliveryTime;
-    private LocalDateTime actualDeliveryTime;
+    private LocalTime expectedDeliveryTime;
+    private LocalTime actualDeliveryTime;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drone_id")

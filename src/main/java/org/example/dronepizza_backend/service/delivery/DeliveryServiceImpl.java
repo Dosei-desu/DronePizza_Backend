@@ -10,6 +10,7 @@ import org.example.dronepizza_backend.repository.drone.DroneRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Service
@@ -37,7 +38,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public Delivery addDelivery(String address, int pizzaType, LocalDateTime expectedDeliveryTime) {
+    public Delivery addDelivery(String address, int pizzaType, LocalTime expectedDeliveryTime) {
         Delivery delivery = new Delivery();
         delivery.setAddress(address);
 
@@ -133,7 +134,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             throw new IllegalArgumentException("Delivery has already been finished");
         }
 
-        delivery.setActualDeliveryTime(LocalDateTime.now());
+        delivery.setActualDeliveryTime(LocalTime.now());
 
         return deliveryRepository.save(delivery);
     }

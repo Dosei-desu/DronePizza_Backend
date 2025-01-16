@@ -6,6 +6,7 @@ import org.example.dronepizza_backend.model.delivery.Pizza;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface DeliveryService {
@@ -14,7 +15,7 @@ public interface DeliveryService {
 
     List<Delivery> getDeliveries(); //all deliveries not delivered
 
-    Delivery addDelivery(String address, int pizzaId, LocalDateTime expectedDeliveryTime);
+    Delivery addDelivery(String address, int pizzaId, LocalTime expectedDeliveryTime);
     //i figure that an expected delivery time is added as soon as a delivery is added
     //since customers will usually get something like "arrival time 30 minutes"
 

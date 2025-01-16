@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @RestController
@@ -19,12 +20,9 @@ public class DeliveryController {
     public DeliveryController(DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
 
-        /*
-        //couldn't get Data.sql inserts to work, so hardcoding it here | TODO fix
-        deliveryService.addPizza(59.00,"Margherita");
-        deliveryService.addPizza(65.00,"Pepperoni");
-        deliveryService.addPizza(68.50,"Pineapple");
-        */
+        deliveryService.addDelivery("Testville 27",1,LocalTime.now().plusMinutes(30));
+        deliveryService.addDelivery("Test Town 58",2,LocalTime.now().plusMinutes(27));
+        deliveryService.addDelivery("Testland 2",3,LocalTime.now().plusMinutes(14));
     }
 
     @GetMapping("")
@@ -38,8 +36,8 @@ public class DeliveryController {
         Delivery delivery = deliveryService.addDelivery(
                 request.address(),
                 request.pizzaType(),
-                LocalDateTime.now().plusMinutes(30)
-                //adds 30 minute to time of creation
+                LocalTime.now().plusMinutes(30)
+                //adds 30 minutes to time of creation
         );
         return ResponseEntity.ok(delivery);
     }
