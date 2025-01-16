@@ -1,5 +1,6 @@
 package org.example.dronepizza_backend.model.drone;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.dronepizza_backend.model.delivery.Delivery;
@@ -20,11 +21,11 @@ public class Drone {
     private String UUID;
     private DroneStatus status;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "station_id")
     private Station station;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "drone_id")
+    @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Delivery> deliveries;
 }

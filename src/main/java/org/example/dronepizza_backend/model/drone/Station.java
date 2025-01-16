@@ -1,5 +1,6 @@
 package org.example.dronepizza_backend.model.drone;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,8 +21,8 @@ public class Station {
     private double latitude;
     private double longitude;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "station_id")
+    @OneToMany(mappedBy = "station", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private List<Drone> drones;
     //keeps giving a dumb error (which doesnt change anything) about Drone
     //being the wrong 'type'

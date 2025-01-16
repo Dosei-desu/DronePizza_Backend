@@ -1,5 +1,6 @@
 package org.example.dronepizza_backend.model.delivery;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.example.dronepizza_backend.model.drone.Drone;
@@ -21,13 +22,11 @@ public class Delivery {
     private Timestamp expectedDeliveryTime;
     private Timestamp actualDeliveryTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "drone_id")
     private Drone drone;
-    //keeps giving a dumb error (which doesnt change anything) about Drone
-    //being the wrong 'type'
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "delivery_id")
+    @OneToOne(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Pizza pizza;
 }

@@ -17,7 +17,7 @@ public class Pizza {
     private String title;
     private double price;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 }

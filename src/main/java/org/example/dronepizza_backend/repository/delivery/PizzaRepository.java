@@ -1,4 +1,4 @@
-package org.example.dronepizza_backend.repository;
+package org.example.dronepizza_backend.repository.delivery;
 
 import org.example.dronepizza_backend.model.delivery.Pizza;
 import org.springframework.data.jpa.repository.JpaRepository;
