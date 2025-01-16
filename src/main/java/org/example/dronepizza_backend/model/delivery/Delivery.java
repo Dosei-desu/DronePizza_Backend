@@ -7,7 +7,6 @@ import org.example.dronepizza_backend.model.drone.Drone;
 import java.sql.Timestamp;
 
 @Entity
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,11 +22,12 @@ public class Delivery {
     private Timestamp actualDeliveryTime;
 
     @ManyToOne
+    @JoinColumn(name = "drone_id")
     private Drone drone;
     //keeps giving a dumb error (which doesnt change anything) about Drone
     //being the wrong 'type'
 
-    @OneToOne(mappedBy = "drone",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private Pizza pizza;
 }

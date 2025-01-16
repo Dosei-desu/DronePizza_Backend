@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Drone {
@@ -22,9 +21,10 @@ public class Drone {
     private DroneStatus status;
 
     @ManyToOne
+    @JoinColumn(name = "station_id")
     private Station station;
 
-    @OneToMany(mappedBy = "drone",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "drone_id")
     private List<Delivery> deliveries;
 }

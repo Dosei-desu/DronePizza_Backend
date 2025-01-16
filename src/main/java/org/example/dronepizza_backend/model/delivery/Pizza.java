@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,5 +18,6 @@ public class Pizza {
     private float price;
 
     @OneToOne
+    @JoinColumn(name = "delivery_id")
     private Delivery delivery;
 }
