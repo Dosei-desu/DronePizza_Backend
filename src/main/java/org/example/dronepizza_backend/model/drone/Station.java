@@ -20,4 +20,10 @@ public class Station {
     private String name;
     private float latitude;
     private float longitude;
+
+    @OneToMany(mappedBy = "station",cascade = CascadeType.ALL)
+    @JoinColumn(name = "station_id")
+    private List<Drone> drones;
+    //keeps giving a dumb error (which doesnt change anything) about Drone
+    //being the wrong 'type'
 }

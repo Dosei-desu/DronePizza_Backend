@@ -20,7 +20,9 @@ public class Drone {
 
     private String UUID;
     private DroneStatus status;
-    private int stationId;
+
+    @ManyToOne
+    private Station station;
 
     @OneToMany(mappedBy = "drone",cascade = CascadeType.ALL)
     @JoinColumn(name = "drone_id")

@@ -5,7 +5,6 @@ import lombok.*;
 import org.example.dronepizza_backend.model.drone.Drone;
 
 import java.sql.Timestamp;
-import java.util.List;
 
 @Entity
 @Builder
