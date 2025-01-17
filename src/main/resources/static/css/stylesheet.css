@@ -8,6 +8,14 @@ body{
     text-align: center;
 }
 
+#pizzaType{
+    width: 85px;
+}
+
+#address{
+    width: 150px;
+}
+
 .center{
     margin-left: auto;
     margin-right: auto;
@@ -16,3 +24,4 @@ body{
 #orderPizzaDiv{
     text-align: center;
 }
+

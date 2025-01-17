@@ -18,10 +18,30 @@
     <h3>Pick one of the following Pizzas</h3>
     <p>1. Margherita | 2. Pepperoni | 3. Pineapple</p>
     <form id="orderForm">
-        <input type="text" id="pizzaType" placeholder="Enter pizza number">
-        <input type="text" id="address" placeholder="Enter address">
+        <input type="text" id="pizzaType" placeholder="Pizza number">
+        <input type="text" id="address" placeholder="Address for delivery">
         <button type="submit">Order</button>
     </form>
+</div>
+<br>
+<br>
+<br>
+<div>
+    <button id="addDroneBtn">Add Drone</button>
+    <table class="center">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Station</th>
+            <th>Status</th>
+            <th>UUID</th>
+            <th>Enable/Disable</th>
+            <th>Retire</th>
+        </tr>
+        </thead>
+        <tbody id="droneTableBody">
+        </tbody>
+    </table>
 </div>
 <br>
 <br>
@@ -38,7 +58,7 @@
             <th>Schedule for Delivery</th>
         </tr>
         </thead>
-        <tbody id="tableBody">
+        <tbody id="deliveryTableBody">
         </tbody>
     </table>
 </div>

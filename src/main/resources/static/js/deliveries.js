@@ -16,7 +16,7 @@ async function fetchDeliveries(){
     console.log("fetching deliveries")
     const data = await fetchUrl(url)
 
-    const tableBody = document.getElementById('tableBody')
+    const tableBody = document.getElementById('deliveryTableBody')
     tableBody.innerHTML = ""
 
     data.forEach(delivery => {
