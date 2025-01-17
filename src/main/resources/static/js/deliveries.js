@@ -33,8 +33,8 @@ async function fetchDrones(){
 
         onOffSwitch.addEventListener("click", async() => {
             console.log("drone status: "+drone.status)
-            if(drone.status !== RETIRED){
-                if(drone.status === DISABLED){
+            if(drone.status !== "RETIRED"){
+                if(drone.status === "DISABLED"){
                     const url = "http://localhost:8080/api/v1/drones/"+drone.id+"/enable"
                     const enabledDrone = fetchUrl(url)
                     console.log("drone ENABLED :"+enabledDrone)
@@ -48,7 +48,7 @@ async function fetchDrones(){
 
         retireBtn.addEventListener("click", async() =>{
             console.log("drone status: "+drone.status)
-            if(drone.status === DISABLED){ //decided to only allow retiring of disabled drones
+            if(drone.status === "DISABLED"){ //decided to only allow retiring of disabled drones
                 const url = "http://localhost:8080/api/v1/drones/"+drone.id+"/retire"
                 const retiredDrone = fetchUrl(url)
                 console.log("drone RETIRED :"+retiredDrone)
@@ -71,13 +71,13 @@ async function fetchDeliveries(){
         const row = document.createElement("tr")
 
         let deliveryDroneStatus = "Unassigned";
-        if (delivery.drone.id !== undefined){
+        if (delivery.drone !== null){
             deliveryDroneStatus = "Assigned"
         }
 
         let deliveryStatus = delivery.actualDeliveryTime
         if(delivery.actualDeliveryTime == null){
-            if(delivery.drone.id !== undefined){
+            if(delivery.drone !== null){
                 deliveryStatus = "Being delivered"
             }else {
                 deliveryStatus = "Waiting for Drone"

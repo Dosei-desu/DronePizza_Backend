@@ -59,7 +59,7 @@ public class DroneServiceImpl implements DroneService {
         }
         drone.setUUID(randomNumber.toString());
 
-        drone.setStatus(DroneStatus.ENABLED);
+        drone.setStatus(DroneStatus.DISABLED);
 
         return droneRepository.save(drone);
     }

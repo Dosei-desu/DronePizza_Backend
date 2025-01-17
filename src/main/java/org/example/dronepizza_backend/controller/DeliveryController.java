@@ -19,10 +19,6 @@ public class DeliveryController {
 
     public DeliveryController(DeliveryService deliveryService) {
         this.deliveryService = deliveryService;
-
-        deliveryService.addDelivery("Testville 27",1,LocalTime.now().plusMinutes(30));
-        deliveryService.addDelivery("Test Town 58",2,LocalTime.now().plusMinutes(27));
-        deliveryService.addDelivery("Testland 2",3,LocalTime.now().plusMinutes(14));
     }
 
     @GetMapping("")
