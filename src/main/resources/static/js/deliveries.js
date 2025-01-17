@@ -4,12 +4,8 @@ async function fetchUrl(url){
 }
 
 
-async function scheduleDelivery(delivery){
-    console.log("add drone to delivery #"+delivery.id)
-    const url = "http://localhost:8080/api/v1/deliveries/"+delivery.id+"/schedule"
-    const scheduledDelivery = await fetchUrl(url)
-    console.log(scheduledDelivery)
-}
+
+
 
 async function fetchDeliveries(){
     const url = "http://localhost:8080/api/v1/deliveries"
@@ -24,13 +20,13 @@ async function fetchDeliveries(){
         const row = document.createElement("tr")
 
         let deliveryDroneStatus = "Unassigned";
-        if (delivery.drone !== undefined){
+        if (delivery.drone.id !== undefined){
             deliveryDroneStatus = "Assigned"
         }
 
         let deliveryStatus = delivery.actualDeliveryTime
         if(delivery.actualDeliveryTime == null){
-            if(delivery.drone !== undefined){
+            if(delivery.drone.id !== undefined){
                 deliveryStatus = "Being delivered"
             }else {
                 deliveryStatus = "Waiting for Drone"
@@ -53,6 +49,22 @@ async function fetchDeliveries(){
         scheduleBtn.addEventListener("click", () => {
             scheduleDelivery(delivery)
         })
+    })
+}
+
+async function scheduleDelivery(delivery){
+    console.log("add drone to delivery #"+delivery.id)
+    const url = "http://localhost:8080/api/v1/deliveries/"+delivery.id+"/schedule"
+    const scheduledDelivery = await fetchUrl(url)
+    console.log("delivery #"+delivery.id+" scheduled: "+scheduledDelivery)
+}
+
+async function addDrone(){
+    const addDroneBtn = document.getElementById("addDroneBtn")
+    addDroneBtn.addEventListener("click", async() =>{
+        const url = "http://localhost:8080/api/v1/drones/add"
+        const newDrone = await fetchUrl(url)
+        console.log("New drone created: "+newDrone)
     })
 }
 
@@ -81,4 +93,5 @@ window.addEventListener("load", function (){
 })
 
 fetchDeliveries()
+addDrone()
 orderPizza()
