@@ -91,23 +91,46 @@ async function fetchDeliveries(){
             "<td>" + delivery.expectedDeliveryTime + "</td>" +
             "<td>" + deliveryStatus + "</td>" +
             "<td> <button class='scheduleBtn' id='scheduleBtn" + delivery.id +
-            "' value='" + delivery + "'>Schedule Drone</button> </td>"
+            "' value='" + delivery + "'>Schedule Drone</button> </td>" +
+            "<td> <button class='arrivalBtn' id='arrivalBtn" + delivery.id +
+            "' value='" + delivery + "'>Yes</button> </td>"
 
         tableBody.appendChild(row)
 
         const scheduleBtn = document.getElementById("scheduleBtn" + delivery.id)
+        const arrivalBtn = document.getElementById("arrivalBtn" + delivery.id)
 
         scheduleBtn.addEventListener("click", () => {
             scheduleDelivery(delivery)
+        })
+
+        arrivalBtn.addEventListener("click", () =>{
+            deliveryArrived(delivery)
         })
     })
 }
 
 async function scheduleDelivery(delivery){
-    console.log("add drone to delivery #"+delivery.id)
-    const url = "http://localhost:8080/api/v1/deliveries/"+delivery.id+"/schedule"
-    const scheduledDelivery = await fetchUrl(url)
-    console.log("delivery #"+delivery.id+" scheduled: "+scheduledDelivery)
+    if(delivery.drone === null) {
+        console.log("add drone to delivery #" + delivery.id)
+        const url = "http://localhost:8080/api/v1/deliveries/" + delivery.id + "/schedule"
+        const scheduledDelivery = await fetchUrl(url)
+        console.log("delivery #" + delivery.id + " scheduled: " + scheduledDelivery)
+    }else{
+        console.log("Delivery is already being delivered")
+    }
+}
+
+async function deliveryArrived(delivery){
+    if(delivery.drone !== null){
+        console.log("delivery #"+delivery.id+" arrived at destination")
+        const url = "http://localhost:8080/api/v1/deliveries/"+delivery.id+"/finish"
+        const finishedDelivery = await fetchUrl(url)
+        console.log("delivery #"+delivery.id+" finished at: "+delivery.actualDeliveryTime+
+            " --- "+finishedDelivery)
+    }else{
+        console.log("Delivery cannot be finished: Currently not being delivered")
+    }
 }
 
 async function addDrone(){

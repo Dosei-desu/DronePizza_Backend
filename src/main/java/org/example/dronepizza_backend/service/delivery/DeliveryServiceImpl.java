@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.dronepizza_backend.model.delivery.Delivery;
 import org.example.dronepizza_backend.model.delivery.Pizza;
 import org.example.dronepizza_backend.model.drone.Drone;
+import org.example.dronepizza_backend.model.drone.DroneStatus;
 import org.example.dronepizza_backend.repository.delivery.DeliveryRepository;
 import org.example.dronepizza_backend.repository.delivery.PizzaRepository;
 import org.example.dronepizza_backend.repository.drone.DroneRepository;
@@ -90,7 +91,12 @@ public class DeliveryServiceImpl implements DeliveryService {
         }
 
         //utilises helper method to assign available drone
-        delivery.setDrone(findAvailableDrone());
+        Drone availableDrone = findAvailableDrone();
+        //sets the selected Drone to ENABLED | TODO make it so RETIRED drones cannot be picked
+        droneRepository.findById(availableDrone.getId()).
+                orElseThrow().setStatus(DroneStatus.ENABLED);
+
+        delivery.setDrone(availableDrone);
 
         return deliveryRepository.save(delivery);
     }
