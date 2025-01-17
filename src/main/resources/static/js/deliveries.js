@@ -4,7 +4,58 @@ async function fetchUrl(url){
 }
 
 
+async function fetchDrones(){
+    const url = "http://localhost:8080/api/v1/drones"
+    console.log("fetching drones")
+    const data = await fetchUrl(url)
 
+    const tableBody = document.getElementById('droneTableBody')
+    tableBody.innerHTML = ""
+
+    data.forEach(drone => {
+
+        const row = document.createElement("tr")
+
+        row.innerHTML =
+            "<td>" + drone.id + "</td>" +
+            "<td>" + drone.station.name + "</td>" +
+            "<td>" + drone.status + "</td>" +
+            "<td>" + drone.uuid + "</td>" +
+            "<td> <button class='onOffSwitch' id='onOffSwitch" + drone.id +
+            "' value='" + drone + "'>Enable/Disable</button> </td>" +
+            "<td> <button class='retireBtn' id='retireBtn" + drone.id +
+            "' value='" + drone + "'>Retire</button> </td>"
+
+        tableBody.appendChild(row)
+
+        const onOffSwitch = document.getElementById("onOffSwitch" + drone.id)
+        const retireBtn = document.getElementById("retireBtn" + drone.id)
+
+        onOffSwitch.addEventListener("click", async() => {
+            console.log("drone status: "+drone.status)
+            if(drone.status !== RETIRED){
+                if(drone.status === DISABLED){
+                    const url = "http://localhost:8080/api/v1/drones/"+drone.id+"/enable"
+                    const enabledDrone = fetchUrl(url)
+                    console.log("drone ENABLED :"+enabledDrone)
+                }else{
+                    const url = "http://localhost:8080/api/v1/drones/"+drone.id+"/disable"
+                    const disabledDrone = fetchUrl(url)
+                    console.log("drone DISABLED :"+disabledDrone)
+                }
+            }
+        })
+
+        retireBtn.addEventListener("click", async() =>{
+            console.log("drone status: "+drone.status)
+            if(drone.status === DISABLED){ //decided to only allow retiring of disabled drones
+                const url = "http://localhost:8080/api/v1/drones/"+drone.id+"/retire"
+                const retiredDrone = fetchUrl(url)
+                console.log("drone RETIRED :"+retiredDrone)
+            }
+        })
+    })
+}
 
 
 async function fetchDeliveries(){
@@ -90,8 +141,10 @@ async function orderPizza(){
 window.addEventListener("load", function (){
     const fetchInterval = 8000 //8 second interval
     setInterval(fetchDeliveries,fetchInterval)
+    setInterval(fetchDrones,fetchInterval)
 })
 
+fetchDrones()
 fetchDeliveries()
 addDrone()
 orderPizza()

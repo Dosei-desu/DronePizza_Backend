@@ -1,5 +1,5 @@
 package org.example.dronepizza_backend.model.drone;
 
 public enum DroneStatus {
-    ENABLED,DISABLED,RETIRE
+    ENABLED,DISABLED,RETIRED
 }

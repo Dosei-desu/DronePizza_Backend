@@ -54,7 +54,7 @@ public class DroneController {
 
     @GetMapping("/{id}/retire")
     public ResponseEntity<Drone> retireDrone(@PathVariable int id) {
-        droneService.updateStatus(id, DroneStatus.RETIRE);
+        droneService.updateStatus(id, DroneStatus.RETIRED);
         return ResponseEntity.noContent().build();
     }
 
